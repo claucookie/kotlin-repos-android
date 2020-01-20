@@ -1,0 +1,7 @@
+#Mon Jan 20 15:17:08 GMT 2020
+base.0=/Users/claucookie/Documents/repos/kotlin-repos-android/app/build/intermediates/dex/debug/mergeExtDexDebug/out/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/claucookie/Documents/repos/kotlin-repos-android/app/build/intermediates/dex/debug/mergeProjectDexDebug/out/classes.dex

@@ -1,4 +1,4 @@
-package dev.claucookielabs.kotlinreposapp.reposlist.presentation
+package dev.claucookielabs.kotlinreposapp.reposlist.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.claucookielabs.kotlinreposapp.R
 import dev.claucookielabs.kotlinreposapp.databinding.ItemViewRepoBinding
-import dev.claucookielabs.kotlinreposapp.reposlist.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.presentation.model.Repo
 
 class ReposAdapter : RecyclerView.Adapter<RepoItemViewHolder>() {
 
@@ -21,7 +21,9 @@ class ReposAdapter : RecyclerView.Adapter<RepoItemViewHolder>() {
                 parent,
                 false
             )
-        return RepoItemViewHolder(binding)
+        return RepoItemViewHolder(
+            binding
+        )
     }
 
     override fun getItemCount(): Int = repos.size

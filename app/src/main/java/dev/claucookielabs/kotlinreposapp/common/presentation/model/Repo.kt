@@ -1,4 +1,4 @@
-package dev.claucookielabs.kotlinreposapp.reposlist.model
+package dev.claucookielabs.kotlinreposapp.common.presentation.model
 
 class Repo(
     val name: String,

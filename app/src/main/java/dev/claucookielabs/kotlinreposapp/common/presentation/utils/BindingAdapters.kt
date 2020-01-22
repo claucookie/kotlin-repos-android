@@ -1,4 +1,4 @@
-package dev.claucookielabs.kotlinreposapp.utils
+package dev.claucookielabs.kotlinreposapp.common.presentation.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

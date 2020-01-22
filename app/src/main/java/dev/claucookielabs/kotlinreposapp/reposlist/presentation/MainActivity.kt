@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dev.claucookielabs.kotlinreposapp.R
 import dev.claucookielabs.kotlinreposapp.databinding.ActivityMainBinding
+import dev.claucookielabs.kotlinreposapp.reposlist.ui.ReposAdapter
 
 /**
  * This class will display a list of repositories using Kotlin language.
@@ -16,8 +17,14 @@ import dev.claucookielabs.kotlinreposapp.databinding.ActivityMainBinding
  * - Descriptions
  * - Number of stars
  *
+ * https://plantuml.com/class-diagram
+ * Android Studio plugin: https://plugins.jetbrains.com/plugin/7017-plantuml-integration/
+ *
  * @startuml
  * MainActivity --|> AppCompatActivity
+ * MainActivity --* MainViewModel
+ * MainViewModel --* GetGithubReposUseCase
+ * GetGithubReposUseCase --* GithubRepository
  * @enduml
  */
 class MainActivity : AppCompatActivity() {
@@ -36,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             viewmodel = mainViewModel
             lifecycleOwner = this@MainActivity
-            reposRv.adapter = ReposAdapter()
+            reposRv.adapter =
+                ReposAdapter()
         }
     }
 

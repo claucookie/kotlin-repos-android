@@ -1,7 +1,8 @@
-package dev.claucookielabs.kotlinreposapp.reposlist.presentation
+package dev.claucookielabs.kotlinreposapp.reposlist.ui
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import dev.claucookielabs.kotlinreposapp.reposlist.presentation.ReposListUIModel
 
 @BindingAdapter("items")
 fun RecyclerView.setItems(uiModel: ReposListUIModel?) {

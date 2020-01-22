@@ -21,11 +21,22 @@ class MainViewModel : ViewModel() {
         GlobalScope.launch(Main) {
             _data.value = ReposListUIModel.Loading
             try {
-                _data.value = withContext(IO) { ReposListUIModel.Content(emptyList()) }
+                _data.value = withContext(IO) { ReposListUIModel.Content(listOfRepos()) }
             } catch (ex: IllegalStateException) {
                 _data.value = ReposListUIModel.Error
             }
         }
+    }
+
+    private fun listOfRepos(): List<Repo> {
+        return listOf(
+            Repo(
+                name = "Android",
+                description = "This is a short description",
+                thumbnailUrl = "https://avatars3.githubusercontent.com/u/32689599?v=4",
+                starsCount = "99"
+            )
+        )
     }
 }
 

@@ -7,7 +7,7 @@
 
         <variable
             name="repo"
-            type="dev.claucookielabs.kotlinreposapp.common.presentation.model.Repo" />
+            type="dev.claucookielabs.kotlinreposapp.common.domain.model.Repo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

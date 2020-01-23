@@ -1,4 +1,4 @@
-package dev.claucookielabs.kotlinreposapp.common.presentation.model
+package dev.claucookielabs.kotlinreposapp.common.domain.model
 
 class Repo(
     val name: String,

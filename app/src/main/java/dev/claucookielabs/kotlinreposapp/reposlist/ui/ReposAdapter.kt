@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.claucookielabs.kotlinreposapp.R
 import dev.claucookielabs.kotlinreposapp.databinding.ItemViewRepoBinding
-import dev.claucookielabs.kotlinreposapp.common.presentation.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 
 class ReposAdapter : RecyclerView.Adapter<RepoItemViewHolder>() {
 

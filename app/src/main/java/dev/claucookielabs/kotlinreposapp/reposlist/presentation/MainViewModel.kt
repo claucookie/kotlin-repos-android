@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dev.claucookielabs.kotlinreposapp.common.data.GithubRemoteDataSource
+import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRemoteDataSource
+import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetListOfRepos
@@ -45,7 +46,8 @@ sealed class ReposListUIModel {
 
 class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val repository = GithubDataRepository(GithubRemoteDataSource())
+        val githubService = GithubServiceFactory.makeGithubService()
+        val repository = GithubDataRepository(GithubRemoteDataSource(githubService))
         val useCase = GetListOfRepos(repository)
         return MainViewModel(useCase) as T
     }

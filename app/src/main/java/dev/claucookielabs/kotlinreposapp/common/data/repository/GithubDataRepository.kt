@@ -7,7 +7,7 @@ import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 
 class GithubDataRepository(private val remoteDataSource: GithubDataSource) : GithubRepository {
 
-    override fun getReposByLanguage(languageName: String): List<Repo> {
+    override suspend fun getReposByLanguage(languageName: String): List<Repo> {
         return remoteDataSource.getReposByLanguage(languageName).map { it.toDomain() }
     }
 
@@ -17,7 +17,7 @@ private fun ApiRepo.toDomain(): Repo {
     return Repo(
         name = this.name,
         description = this.description,
-        thumbnailUrl = this.thumbnailUrl,
+        thumbnailUrl = this.apiOwner.avatarUrl,
         starsCount = this.starsCount.toString()
     )
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Repos App</string>
+    <string name="an_error_occured">Sorry, it seems there is something wrong, try again later.</string>
 </resources>

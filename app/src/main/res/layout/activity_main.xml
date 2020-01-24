@@ -25,17 +25,25 @@
             tools:listitem="@layout/item_view_repo" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:loading="@{viewmodel.data}"
             app:lottie_autoPlay="true"
             app:lottie_fileName="lottie_loading.json"
-            app:lottie_loop="true"
-            app:visible="@{viewmodel.data}" />
+            app:lottie_loop="true" />
+
+        <dev.claucookielabs.kotlinreposapp.common.presentation.ui.AnErrorOccuredView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onError="@{viewmodel.data}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

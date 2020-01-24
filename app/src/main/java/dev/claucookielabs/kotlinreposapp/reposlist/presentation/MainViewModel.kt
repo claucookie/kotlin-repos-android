@@ -27,9 +27,8 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
             _data.value = ReposListUIModel.Loading
             try {
                 _data.value = withContext(IO) {
-                    ReposListUIModel.Content(
-                        getListOfRepos.execute(GetReposRequest("kotlin"))
-                    )
+                    val result = getListOfRepos.execute(GetReposRequest("kotlin"))
+                    ReposListUIModel.Content(result)
                 }
             } catch (ex: IllegalStateException) {
                 _data.value = ReposListUIModel.Error

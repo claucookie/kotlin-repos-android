@@ -3,7 +3,10 @@ package dev.claucookielabs.kotlinreposapp.reposlist.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import dev.claucookielabs.kotlinreposapp.R
+import dev.claucookielabs.kotlinreposapp.databinding.ActivityMainBinding
+import dev.claucookielabs.kotlinreposapp.reposlist.ui.ReposAdapter
 
 /**
  * This class will display a list of repositories using Kotlin language.
@@ -14,21 +17,46 @@ import dev.claucookielabs.kotlinreposapp.R
  * - Descriptions
  * - Number of stars
  *
+ * https://plantuml.com/class-diagram
+ * Android Studio plugin: https://plugins.jetbrains.com/plugin/7017-plantuml-integration/
+ *
  * @startuml
+ * interface GithubRepository
+ * interface UseCase
+ * interface GithubDataSource
+ *
  * MainActivity --|> AppCompatActivity
+ * MainActivity --* MainViewModel
+ * MainViewModel --* GetListOfRepos
+ * GetListOfRepos --* GithubRepository
+ * GetListOfRepos --|> UseCase
+ * GithubDataRepository --|> GithubRepository
+ * GithubDataRepository --* GithubDataSource
+ * GithubRemoteDataSource --|> GithubDataSource
  * @enduml
  */
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: MainViewModel by viewModels<MainViewModel> { MainViewModelFactory() }
+    private val mainViewModel: MainViewModel by viewModels { MainViewModelFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setupDatabinding()
         loadRepos()
     }
 
+    private fun setupDatabinding() {
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.apply {
+            viewmodel = mainViewModel
+            lifecycleOwner = this@MainActivity
+            reposRv.adapter =
+                ReposAdapter()
+        }
+    }
+
     private fun loadRepos() {
-        viewModel.fetchKotlinRepos()
+        mainViewModel.fetchKotlinRepos()
     }
 }

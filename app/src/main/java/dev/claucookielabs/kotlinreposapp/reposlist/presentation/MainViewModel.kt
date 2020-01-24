@@ -8,6 +8,7 @@ import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRem
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetListOfRepos
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetReposRequest
 import kotlinx.coroutines.Dispatchers.IO
@@ -25,13 +26,12 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
     fun fetchKotlinRepos() {
         GlobalScope.launch(Main) {
             _data.value = ReposListUIModel.Loading
-            try {
-                _data.value = withContext(IO) {
-                    val result = getListOfRepos.execute(GetReposRequest("kotlin"))
-                    ReposListUIModel.Content(result)
+            _data.value = withContext(IO) {
+                val result = getListOfRepos.execute(GetReposRequest("kotlin"))
+                when (result) {
+                    is ResultWrapper.Success -> ReposListUIModel.Content(result.value)
+                    else -> ReposListUIModel.Error
                 }
-            } catch (ex: IllegalStateException) {
-                _data.value = ReposListUIModel.Error
             }
         }
     }

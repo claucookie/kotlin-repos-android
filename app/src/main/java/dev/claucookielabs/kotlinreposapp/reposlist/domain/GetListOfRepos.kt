@@ -4,11 +4,12 @@ import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataReposi
 import dev.claucookielabs.kotlinreposapp.common.domain.BaseRequest
 import dev.claucookielabs.kotlinreposapp.common.domain.UseCase
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 
 class GetListOfRepos(private val githubRepository: GithubDataRepository) :
-    UseCase<GetReposRequest, List<Repo>> {
+    UseCase<GetReposRequest, ResultWrapper<List<Repo>>> {
 
-    override suspend fun execute(request: GetReposRequest): List<Repo> {
+    override suspend fun execute(request: GetReposRequest): ResultWrapper<List<Repo>> {
         return githubRepository.getReposByLanguage(request.languageName)
     }
 }

@@ -17,12 +17,25 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repos_rv"
-            app:items="@{viewmodel.data}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:items="@{viewmodel.data}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="4"
             tools:listitem="@layout/item_view_repo" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_loading.json"
+            app:lottie_loop="true"
+            app:visible="@{viewmodel.data}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

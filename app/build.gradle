@@ -41,9 +41,10 @@ dependencies {
     implementation("com.google.android:flexbox:2.0.0")
     implementation("android.arch.lifecycle:extensions:1.1.1")
     implementation("com.github.bumptech.glide:glide:4.11.0")
-    implementation("com.squareup.retrofit2:retrofit:2.6.0")
+    implementation("com.squareup.retrofit2:retrofit:2.6.0") // Not using 2.7.1 due to meta factory issue https://github.com/square/retrofit/issues/3280
     implementation("com.squareup.retrofit2:converter-moshi:2.6.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.0.1")
+    implementation("com.airbnb.android:lottie:3.3.0")
     kapt("com.github.bumptech.glide:compiler:4.11.0")
     testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test:runner:1.2.0")

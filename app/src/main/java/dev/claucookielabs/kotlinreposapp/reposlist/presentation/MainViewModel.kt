@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dev.claucookielabs.kotlinreposapp.common.data.GithubRemoteDataSource
+import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetListOfRepos
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetReposRequest
@@ -13,7 +15,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(val getListOfRepos: GetListOfRepos) : ViewModel() {
+class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
 
     private val _data = MutableLiveData<ReposListUIModel>()
     val data: LiveData<ReposListUIModel>
@@ -43,7 +45,9 @@ sealed class ReposListUIModel {
 
 class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(GetListOfRepos()) as T
+        val repository = GithubDataRepository(GithubRemoteDataSource())
+        val useCase = GetListOfRepos(repository)
+        return MainViewModel(useCase) as T
     }
 
 }

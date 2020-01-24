@@ -21,10 +21,18 @@ import dev.claucookielabs.kotlinreposapp.reposlist.ui.ReposAdapter
  * Android Studio plugin: https://plugins.jetbrains.com/plugin/7017-plantuml-integration/
  *
  * @startuml
+ * interface GithubRepository
+ * interface UseCase
+ * interface GithubDataSource
+ *
  * MainActivity --|> AppCompatActivity
  * MainActivity --* MainViewModel
- * MainViewModel --* GetGithubReposUseCase
- * GetGithubReposUseCase --* GithubRepository
+ * MainViewModel --* GetListOfRepos
+ * GetListOfRepos --* GithubRepository
+ * GetListOfRepos --|> UseCase
+ * GithubDataRepository --|> GithubRepository
+ * GithubDataRepository --* GithubDataSource
+ * GithubRemoteDataSource --|> GithubDataSource
  * @enduml
  */
 class MainActivity : AppCompatActivity() {

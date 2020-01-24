@@ -17,7 +17,10 @@ private fun ApiRepo.toDomain(): Repo {
     return Repo(
         name = this.name,
         description = this.description,
-        thumbnailUrl = this.apiOwner.avatarUrl,
-        starsCount = this.starsCount.toString()
+        starsCount = this.starsCount.toString(),
+        thumbnailUrl = this.apiOwner?.avatarUrl ?: PLACEHOLDER
     )
 }
+
+private const val PLACEHOLDER =
+    "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2018/03/GitHub-brave-hed-796x418.jpg"

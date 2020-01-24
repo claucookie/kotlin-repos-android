@@ -2,6 +2,7 @@ package dev.claucookielabs.kotlinreposapp.common.data.datasource.remote
 
 import com.squareup.moshi.Json
 import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,7 +12,7 @@ interface GithubService {
         @Query("q") query: String,
         @Query("sort") sort: String,
         @Query("order") order: String
-    ): SearchResponse
+    ): Response<SearchResponse>
 }
 
 class SearchResponse(

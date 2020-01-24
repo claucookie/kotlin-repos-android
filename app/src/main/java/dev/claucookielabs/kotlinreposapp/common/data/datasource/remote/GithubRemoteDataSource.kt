@@ -6,10 +6,11 @@ import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 class GithubRemoteDataSource(private val githubService: GithubService) : GithubDataSource {
 
     override suspend fun getReposByLanguage(languageName: String): List<ApiRepo> {
-        return githubService.fetchRepositories(
+        val response = githubService.fetchRepositories(
             query = "language:$languageName",
             sort = "stars",
             order = "desc"
-        ).items
+        )
+        return response.body()?.items ?: emptyList()
     }
 }

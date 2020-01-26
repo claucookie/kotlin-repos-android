@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        android:onClick="@{(view) -> navigator.navigateToDetailScreen(view.context, repo)}">
+        android:onClick="@{(view) -> navigator.navigateToDetailScreen(view, repo)}">
 
         <ImageView
             android:id="@+id/repo_thumbnail"

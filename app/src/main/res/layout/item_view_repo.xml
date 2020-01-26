@@ -8,11 +8,17 @@
         <variable
             name="repo"
             type="dev.claucookielabs.kotlinreposapp.common.domain.model.Repo" />
+
+        <variable
+            name="navigator"
+            type="dev.claucookielabs.kotlinreposapp.common.presentation.utils.Navigator" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:onClick="@{(view) -> navigator.navigateToDetailScreen(view.context, repo)}">
 
         <ImageView
             android:id="@+id/repo_thumbnail"

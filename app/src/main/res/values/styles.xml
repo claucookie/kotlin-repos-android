@@ -18,4 +18,19 @@
         <item name="android:maxLines">2</item>
     </style>
 
+    <style name="LongTitle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="LongDescription" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="Headline" parent="TextAppearance.AppCompat.Title">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
 </resources>

@@ -19,7 +19,7 @@
             android:id="@+id/repos_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:items="@{viewmodel.data}"
+            app:repos="@{viewmodel.data}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="4"
             tools:listitem="@layout/item_view_repo" />

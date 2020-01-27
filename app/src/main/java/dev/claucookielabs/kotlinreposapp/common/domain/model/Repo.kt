@@ -4,9 +4,20 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Repo(
+data class Repo(
     val name: String,
     val description: String,
-    val thumbnailUrl: String,
-    val starsCount: String
+    val starsCount: String,
+    val owner: Owner
+) : Parcelable {
+
+    val thumbnailUrl: String
+        get() = owner.avatarUrl
+
+}
+
+@Parcelize
+data class Owner(
+    val userName: String,
+    val avatarUrl: String
 ) : Parcelable

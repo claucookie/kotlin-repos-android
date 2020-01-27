@@ -10,5 +10,6 @@ class ApiRepo(
 )
 
 class ApiOwner(
+    @Json(name = "login") val userName : String,
     @Json(name = "avatar_url") val avatarUrl: String
 )

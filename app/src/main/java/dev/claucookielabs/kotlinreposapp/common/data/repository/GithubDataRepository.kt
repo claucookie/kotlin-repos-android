@@ -1,8 +1,10 @@
 package dev.claucookielabs.kotlinreposapp.common.data.repository
 
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.GithubDataSource
+import dev.claucookielabs.kotlinreposapp.common.data.model.ApiOwner
 import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 import dev.claucookielabs.kotlinreposapp.common.domain.GithubRepository
+import dev.claucookielabs.kotlinreposapp.common.domain.model.Owner
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 import retrofit2.HttpException
@@ -29,7 +31,14 @@ private fun ApiRepo.toDomain(): Repo {
         name = this.name,
         description = this.description,
         starsCount = this.starsCount.toString(),
-        thumbnailUrl = this.apiOwner?.avatarUrl ?: PLACEHOLDER
+        owner = this.apiOwner.toDomain()
+    )
+}
+
+private fun ApiOwner?.toDomain(): Owner {
+    return Owner(
+        userName = this?.userName ?: "a",
+        avatarUrl = this?.avatarUrl ?: PLACEHOLDER
     )
 }
 

@@ -3,6 +3,8 @@ package dev.claucookielabs.kotlinreposapp.repodetail.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dev.claucookielabs.kotlinreposapp.R
+import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.presentation.utils.REPO_EXTRA
 
 /**
  * This class will display the complete information for a repository.
@@ -19,5 +21,12 @@ class RepoDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repo_detail)
+        intent.getParcelableExtra<Repo>(REPO_EXTRA)?.let {
+            render(it)
+        }
+    }
+
+    private fun render(repo: Repo) {
+        
     }
 }

@@ -8,6 +8,10 @@
         <variable
             name="repo"
             type="dev.claucookielabs.kotlinreposapp.common.domain.model.Repo" />
+
+        <variable
+            name="viewmodel"
+            type="dev.claucookielabs.kotlinreposapp.repodetail.presentation.RepoDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +94,7 @@
             style="@style/Content"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            android:text="@{repo.description}"
+            app:content="@{viewmodel.data}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/readme_headline"

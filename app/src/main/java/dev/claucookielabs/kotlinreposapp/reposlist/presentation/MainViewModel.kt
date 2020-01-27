@@ -36,12 +36,6 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
     }
 }
 
-sealed class UIModel {
-    object Loading : UIModel()
-    object Error : UIModel()
-    class Content<T>(val data: T) : UIModel()
-}
-
 class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val githubService = GithubServiceFactory.makeGithubService()

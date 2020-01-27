@@ -2,6 +2,7 @@ package dev.claucookielabs.kotlinreposapp.repodetail.presentation
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dev.claucookielabs.kotlinreposapp.R
@@ -21,11 +22,18 @@ import dev.claucookielabs.kotlinreposapp.databinding.ActivityRepoDetailBinding
  */
 class RepoDetailActivity : AppCompatActivity() {
 
+    private val viewModel: RepoDetailViewModel by viewModels { RepoDetailViewModelFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val repo = intent.getParcelableExtra<Repo>(REPO_EXTRA)
         setupDataBinding(repo!!)
         setupToolbar(repo)
+        loadReadme()
+    }
+
+    private fun loadReadme() {
+        viewModel.fetchReadmeContent()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -41,9 +49,13 @@ class RepoDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupDataBinding(repo: Repo) {
+    private fun setupDataBinding(currentRepo: Repo) {
         val binding: ActivityRepoDetailBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_repo_detail)
-        binding.repo = repo
+        binding.apply {
+            lifecycleOwner = this@RepoDetailActivity
+            viewmodel = viewModel
+            repo = currentRepo
+        }
     }
 }

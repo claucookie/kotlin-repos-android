@@ -9,7 +9,7 @@ class GetReadmeFileContent(private val githubRepository: GithubRepository) :
     UseCase<GetReadmeFileRequest, ResultWrapper<String>> {
 
     override suspend fun execute(request: GetReadmeFileRequest): ResultWrapper<String> {
-        return githubRepository.getReadmeFileContent(request.ownerName, request.repoName)
+        return githubRepository.getFileContent(request.ownerName, request.repoName, "Readme.md")
     }
 }
 

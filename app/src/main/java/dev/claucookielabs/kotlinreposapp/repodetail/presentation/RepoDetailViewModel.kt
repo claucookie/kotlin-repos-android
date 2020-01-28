@@ -1,10 +1,9 @@
 package dev.claucookielabs.kotlinreposapp.repodetail.presentation
 
-import androidx.lifecycle.*
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubContentServiceFactory
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRemoteDataSource
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
-import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 import dev.claucookielabs.kotlinreposapp.repodetail.domain.GetReadmeFileContent
@@ -39,20 +38,4 @@ class RepoDetailViewModel(private val getReadmeFileContent: GetReadmeFileContent
             }
         }
     }
-}
-
-class RepoDetailViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val remoteDataSource = GithubRemoteDataSource(
-            GithubServiceFactory.create(),
-            GithubContentServiceFactory.create()
-        )
-        val githubRepository = GithubDataRepository(remoteDataSource)
-        val getReadmeFileContent =
-            GetReadmeFileContent(
-                githubRepository
-            )
-        return RepoDetailViewModel(getReadmeFileContent) as T
-    }
-
 }

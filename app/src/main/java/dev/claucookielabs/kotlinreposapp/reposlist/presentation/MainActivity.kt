@@ -1,12 +1,13 @@
 package dev.claucookielabs.kotlinreposapp.reposlist.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import dev.claucookielabs.kotlinreposapp.R
 import dev.claucookielabs.kotlinreposapp.databinding.ActivityMainBinding
 import dev.claucookielabs.kotlinreposapp.reposlist.ui.ReposAdapter
+import org.koin.androidx.scope.currentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * This class will display a list of repositories using Kotlin language.
@@ -37,7 +38,7 @@ import dev.claucookielabs.kotlinreposapp.reposlist.ui.ReposAdapter
  */
 class MainActivity : AppCompatActivity() {
 
-    private val mainViewModel: MainViewModel by viewModels { MainViewModelFactory() }
+    private val mainViewModel: MainViewModel by currentScope.viewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

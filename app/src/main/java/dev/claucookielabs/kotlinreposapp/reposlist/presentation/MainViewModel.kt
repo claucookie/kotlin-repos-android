@@ -1,10 +1,9 @@
 package dev.claucookielabs.kotlinreposapp.reposlist.presentation
 
-import androidx.lifecycle.*
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubContentServiceFactory
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRemoteDataSource
-import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
-import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetListOfRepos
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetReposRequest
@@ -32,17 +31,4 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
             }
         }
     }
-}
-
-class MainViewModelFactory : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val remoteDataSource = GithubRemoteDataSource(
-            GithubServiceFactory.create(),
-            GithubContentServiceFactory.create()
-        )
-        val repository = GithubDataRepository(remoteDataSource)
-        val useCase = GetListOfRepos(repository)
-        return MainViewModel(useCase) as T
-    }
-
 }

@@ -9,7 +9,7 @@ object GithubServiceFactory {
 
     private const val BASE_URL = "https://api.github.com"
 
-    fun makeGithubService(): GithubService {
+    fun create(): GithubService {
         val interceptor = HttpLoggingInterceptor()
         interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()

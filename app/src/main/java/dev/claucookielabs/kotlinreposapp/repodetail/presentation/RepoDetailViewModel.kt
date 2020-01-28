@@ -46,8 +46,8 @@ class RepoDetailViewModel(private val getReadmeFileContent: GetReadmeFileContent
 class RepoDetailViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val remoteDataSource = GithubRemoteDataSource(
-            GithubServiceFactory.makeGithubService(),
-            GithubContentServiceFactory.makeGithubContentService()
+            GithubServiceFactory.create(),
+            GithubContentServiceFactory.create()
         )
         val githubRepository = GithubDataRepository(remoteDataSource)
         val getReadmeFileContent =

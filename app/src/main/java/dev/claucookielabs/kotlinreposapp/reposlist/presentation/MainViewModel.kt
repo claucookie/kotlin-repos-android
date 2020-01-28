@@ -40,8 +40,8 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
 class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val remoteDataSource = GithubRemoteDataSource(
-            GithubServiceFactory.makeGithubService(),
-            GithubContentServiceFactory.makeGithubContentService()
+            GithubServiceFactory.create(),
+            GithubContentServiceFactory.create()
         )
         val repository = GithubDataRepository(remoteDataSource)
         val useCase = GetListOfRepos(repository)

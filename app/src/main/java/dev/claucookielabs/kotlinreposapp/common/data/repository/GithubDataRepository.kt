@@ -46,15 +46,15 @@ private fun ApiRepo.toDomain(): Repo {
     return Repo(
         name = this.name,
         description = this.description,
-        starsCount = this.starsCount.toString(),
-        owner = this.apiOwner.toDomain()
+        starsCount = this.stargazers_count.toString(),
+        owner = this.owner.toDomain()
     )
 }
 
 private fun ApiOwner?.toDomain(): Owner {
     return Owner(
-        userName = this?.userName ?: "a",
-        avatarUrl = this?.avatarUrl ?: PLACEHOLDER
+        userName = this?.login ?: "",
+        avatarUrl = this?.avatar_url ?: PLACEHOLDER
     )
 }
 

@@ -5,30 +5,17 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dev.claucookielabs.kotlinreposapp.reposlist.presentation.ReposListUIModel
+import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
+import dev.claucookielabs.kotlinreposapp.reposlist.presentation.UIModel
 
-@BindingAdapter("items")
-fun RecyclerView.setItems(uiModel: ReposListUIModel?) {
-    (uiModel as? ReposListUIModel.Content)?.repos?.let { items ->
+@BindingAdapter("repos")
+fun RecyclerView.setRepos(uiModel: UIModel?) {
+    (uiModel as? UIModel.Content<List<Repo>>)?.data?.let { items ->
         (adapter as? ReposAdapter)?.let {
             items.let { newItems ->
                 it.repos = newItems
                 it.notifyDataSetChanged()
             }
         }
-    }
-}
-
-@BindingAdapter("loading")
-fun View.setLoadingVisibility(uiModel: ReposListUIModel?) {
-    uiModel?.let {
-        visibility = if (it is ReposListUIModel.Loading) VISIBLE else GONE
-    }
-}
-
-@BindingAdapter("onError")
-fun View.setOnErrorVisibility(uiModel: ReposListUIModel?) {
-    uiModel?.let {
-        visibility = if (it is ReposListUIModel.Error) VISIBLE else GONE
     }
 }

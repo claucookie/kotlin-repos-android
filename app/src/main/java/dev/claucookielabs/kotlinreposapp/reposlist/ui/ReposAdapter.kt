@@ -5,12 +5,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.claucookielabs.kotlinreposapp.R
-import dev.claucookielabs.kotlinreposapp.databinding.ItemViewRepoBinding
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
+import dev.claucookielabs.kotlinreposapp.common.presentation.utils.Navigator
+import dev.claucookielabs.kotlinreposapp.databinding.ItemViewRepoBinding
 
 class ReposAdapter : RecyclerView.Adapter<RepoItemViewHolder>() {
 
     var repos: List<Repo> = emptyList()
+
+    private val navigator = Navigator()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -35,6 +38,7 @@ class ReposAdapter : RecyclerView.Adapter<RepoItemViewHolder>() {
 
     private fun bind(binding: ItemViewRepoBinding, repo: Repo) {
         binding.repo = repo
+        binding.navigator = navigator
     }
 }
 

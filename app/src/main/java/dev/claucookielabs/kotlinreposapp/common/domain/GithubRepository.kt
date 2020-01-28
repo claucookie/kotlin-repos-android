@@ -6,4 +6,5 @@ import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 interface GithubRepository {
 
     suspend fun getReposByLanguage(languageName: String): ResultWrapper<List<Repo>>
+    suspend fun getReadmeFileContent(ownerName: String, repoName: String): ResultWrapper<String>
 }

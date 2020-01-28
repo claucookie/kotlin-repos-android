@@ -1,8 +1,10 @@
 package dev.claucookielabs.kotlinreposapp.common.data.repository
 
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.GithubDataSource
+import dev.claucookielabs.kotlinreposapp.common.data.model.ApiOwner
 import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 import dev.claucookielabs.kotlinreposapp.common.domain.GithubRepository
+import dev.claucookielabs.kotlinreposapp.common.domain.model.Owner
 import dev.claucookielabs.kotlinreposapp.common.domain.model.Repo
 import dev.claucookielabs.kotlinreposapp.common.domain.model.ResultWrapper
 import retrofit2.HttpException
@@ -22,6 +24,22 @@ class GithubDataRepository(private val remoteDataSource: GithubDataSource) : Git
         }
     }
 
+    override suspend fun getReadmeFileContent(
+        ownerName: String,
+        repoName: String
+    ): ResultWrapper<String> {
+        // TODO Code duplication in both functions, try to move to a generic function I can reuse.
+        return try {
+            ResultWrapper.Success(remoteDataSource.getReadmeFile(ownerName, repoName))
+        } catch (throwable: IOException) {
+            ResultWrapper.NetworkError
+        } catch (throwable: HttpException) {
+            val code = throwable.code()
+            val errorResponse = throwable.message()
+            ResultWrapper.GenericError(code, errorResponse)
+        }
+
+    }
 }
 
 private fun ApiRepo.toDomain(): Repo {
@@ -29,7 +47,14 @@ private fun ApiRepo.toDomain(): Repo {
         name = this.name,
         description = this.description,
         starsCount = this.starsCount.toString(),
-        thumbnailUrl = this.apiOwner?.avatarUrl ?: PLACEHOLDER
+        owner = this.apiOwner.toDomain()
+    )
+}
+
+private fun ApiOwner?.toDomain(): Owner {
+    return Owner(
+        userName = this?.userName ?: "a",
+        avatarUrl = this?.avatarUrl ?: PLACEHOLDER
     )
 }
 

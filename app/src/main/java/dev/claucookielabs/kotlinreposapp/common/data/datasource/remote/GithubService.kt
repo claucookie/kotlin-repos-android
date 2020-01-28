@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GithubService {

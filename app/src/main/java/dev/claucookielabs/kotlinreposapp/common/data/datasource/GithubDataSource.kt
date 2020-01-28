@@ -5,4 +5,5 @@ import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 interface GithubDataSource {
 
     suspend fun getReposByLanguage(languageName: String) : List<ApiRepo>
+    suspend fun getReadmeFile(ownerName: String, repoName: String): String
 }

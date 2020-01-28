@@ -3,7 +3,10 @@ package dev.claucookielabs.kotlinreposapp.common.data.datasource.remote
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.GithubDataSource
 import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
 
-class GithubRemoteDataSource(private val githubService: GithubService) : GithubDataSource {
+class GithubRemoteDataSource(
+    private val githubService: GithubService,
+    private val githubContentService: GithubContentService
+) : GithubDataSource {
 
     override suspend fun getReposByLanguage(languageName: String): List<ApiRepo> {
         val response = githubService.fetchRepositories(
@@ -12,5 +15,9 @@ class GithubRemoteDataSource(private val githubService: GithubService) : GithubD
             order = "desc"
         )
         return response.body()?.items ?: emptyList()
+    }
+
+    override suspend fun getReadmeFile(ownerName: String, repoName: String): String {
+        return githubContentService.fetchRepositoryReadme(ownerName, repoName).body() ?: ""
     }
 }

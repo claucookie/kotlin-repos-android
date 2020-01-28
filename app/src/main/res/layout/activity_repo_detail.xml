@@ -10,21 +10,19 @@
             type="dev.claucookielabs.kotlinreposapp.common.domain.model.Repo" />
 
         <variable
-            name="navigator"
-            type="dev.claucookielabs.kotlinreposapp.common.presentation.utils.Navigator" />
+            name="viewmodel"
+            type="dev.claucookielabs.kotlinreposapp.repodetail.presentation.RepoDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:onClick="@{(view) -> navigator.navigateToDetailScreen(view, repo)}">
+        android:padding="@dimen/spacing_normal">
 
         <ImageView
-            android:id="@+id/repo_thumbnail"
+            android:id="@+id/user_thumbnail"
             android:layout_width="@dimen/thumbnail_width"
-            android:layout_height="@dimen/thumbnail_height"
-            android:layout_marginTop="@dimen/spacing_normal"
+            android:layout_height="@dimen/thumbnail_width"
             android:scaleType="centerCrop"
             app:imageUrl="@{repo.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,55 +30,75 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/repo_name"
-            style="@style/Title"
+            android:id="@+id/user_name"
+            style="@style/LongTitle"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
-            android:text="@{repo.name}"
-            app:layout_constraintBottom_toTopOf="@id/repo_description"
+            android:text="@{repo.owner.userName}"
+            app:layout_constraintBottom_toTopOf="@+id/user_description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/repo_thumbnail"
+            app:layout_constraintStart_toEndOf="@+id/user_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
             tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/repo_description"
-            style="@style/Description"
+            android:id="@+id/user_description"
+            style="@style/LongDescription"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
             android:text="@{repo.description}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/repo_thumbnail"
-            app:layout_constraintTop_toBottomOf="@+id/repo_name"
+            app:layout_constraintStart_toEndOf="@+id/user_thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/user_name"
             tools:text="@tools:sample/lorem/random" />
+
+        <View
+            android:id="@+id/user_divider"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_thumbnail" />
 
         <TextView
             android:id="@+id/repo_stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
             android:drawableEnd="@drawable/ic_star"
             android:text="@{repo.starsCount}"
             android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintBottom_toBottomOf="@+id/readme_headline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_divider"
             tools:text="100000" />
 
-        <View
+        <TextView
+            android:id="@+id/readme_headline"
+            style="@style/Headline"
             android:layout_width="@dimen/match_constraint"
-            android:layout_height="0.5dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:background="@android:color/darker_gray"
+            android:text="@string/readme_filename"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/repo_thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/repo_thumbnail" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_divider" />
+
+        <TextView
+            android:id="@+id/readme_content"
+            style="@style/Content"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            app:content="@{viewmodel.readme}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/readme_headline"
+            tools:text="@tools:sample/lorem" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

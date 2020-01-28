@@ -18,6 +18,13 @@ import dev.claucookielabs.kotlinreposapp.databinding.ActivityRepoDetailBinding
  *
  * @startuml
  * RepoDetailActivity --|> AppCompatActivity
+ * RepoDetailActivity --* RepoDetailViewModel
+ * RepoDetailViewModel --* GetReadmeFileContent
+ * GetReadmeFileContent --* GithubRepository
+ * GetReadmeFileContent --|> UseCase
+ * GithubDataRepository --|> GithubRepository
+ * GithubDataRepository --* GithubDataSource
+ * GithubRemoteDataSource --|> GithubDataSource
  * @enduml
  */
 class RepoDetailActivity : AppCompatActivity() {

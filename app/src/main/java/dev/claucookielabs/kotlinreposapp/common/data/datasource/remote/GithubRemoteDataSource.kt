@@ -17,7 +17,20 @@ class GithubRemoteDataSource(
         return response.body()?.items ?: emptyList()
     }
 
-    override suspend fun getReadmeFile(ownerName: String, repoName: String): String {
-        return githubContentService.fetchRepositoryReadme(ownerName, repoName).body() ?: ""
+    override suspend fun getFileContent(
+        ownerName: String,
+        repoName: String,
+        fileName: String
+    ): String {
+        val filesResult = githubService.fetchRepositoryContents(ownerName, repoName)
+        val fileFound = filesResult.body()
+            ?.firstOrNull { file ->
+                file.name.toLowerCase() == fileName.toLowerCase()
+            }
+        return githubContentService.fetchRepositoryFileContent(
+            ownerName,
+            repoName,
+            fileFound?.name ?: fileName
+        ).body() ?: ""
     }
 }

@@ -24,13 +24,14 @@ class GithubDataRepository(private val remoteDataSource: GithubDataSource) : Git
         }
     }
 
-    override suspend fun getReadmeFileContent(
+    override suspend fun getFileContent(
         ownerName: String,
-        repoName: String
+        repoName: String,
+        fileName: String
     ): ResultWrapper<String> {
         // TODO Code duplication in both functions, try to move to a generic function I can reuse.
         return try {
-            ResultWrapper.Success(remoteDataSource.getReadmeFile(ownerName, repoName))
+            ResultWrapper.Success(remoteDataSource.getFileContent(ownerName, repoName, fileName))
         } catch (throwable: IOException) {
             ResultWrapper.NetworkError
         } catch (throwable: HttpException) {

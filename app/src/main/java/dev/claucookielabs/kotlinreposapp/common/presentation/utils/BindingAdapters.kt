@@ -2,11 +2,11 @@ package dev.claucookielabs.kotlinreposapp.common.presentation.utils
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import dev.claucookielabs.kotlinreposapp.R
 import dev.claucookielabs.kotlinreposapp.reposlist.presentation.UIModel
+import us.feras.mdv.MarkdownView
 
 @BindingAdapter("imageUrl")
 fun ImageView.loadImage(imageUrl: String) {
@@ -30,11 +30,12 @@ fun View.setOnErrorVisibility(uiModel: UIModel?) {
 }
 
 @BindingAdapter("content")
-fun TextView.setTextContent(uiModel: UIModel?) {
+fun MarkdownView.setTextContent(uiModel: UIModel?) {
     if (uiModel is UIModel.Loading) {
-        text = resources.getString(R.string.loading_content)
+        loadMarkdown(resources.getString(R.string.loading_content))
     }
     (uiModel as? UIModel.Content<String>)?.data?.let {
-        text = if (it.isBlank()) resources.getString(R.string.an_error_occured) else it
+        val content = if (it.isBlank()) resources.getString(R.string.an_error_occured) else it
+        loadMarkdown(content)
     }
 }

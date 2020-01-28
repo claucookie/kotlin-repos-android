@@ -6,9 +6,10 @@ import retrofit2.http.Path
 
 interface GithubContentService {
 
-    @GET("{owner}/{repo}/master/ReadMe.md")
-    suspend fun fetchRepositoryReadme(
+    @GET("{owner}/{repo}/master/{filename}")
+    suspend fun fetchRepositoryFileContent(
         @Path("owner") ownerName: String,
-        @Path("repo") repoName: String
+        @Path("repo") repoName: String,
+        @Path("filename") filename: String
     ): Response<String>
 }

@@ -89,16 +89,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_divider" />
 
-        <TextView
+        <us.feras.mdv.MarkdownView
             android:id="@+id/readme_content"
-            style="@style/Content"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             app:content="@{viewmodel.readme}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/readme_headline"
-            tools:text="@tools:sample/lorem" />
+            app:layout_constraintTop_toBottomOf="@+id/readme_headline" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

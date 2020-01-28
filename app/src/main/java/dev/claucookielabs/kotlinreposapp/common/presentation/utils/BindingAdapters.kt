@@ -35,6 +35,6 @@ fun TextView.setTextContent(uiModel: UIModel?) {
         text = resources.getString(R.string.loading_content)
     }
     (uiModel as? UIModel.Content<String>)?.data?.let {
-        text = it
+        text = if (it.isBlank()) resources.getString(R.string.an_error_occured) else it
     }
 }

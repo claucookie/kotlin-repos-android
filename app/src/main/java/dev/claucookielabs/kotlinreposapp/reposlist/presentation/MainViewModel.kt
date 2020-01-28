@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubContentServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRemoteDataSource
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
@@ -38,8 +39,11 @@ class MainViewModel(private val getListOfRepos: GetListOfRepos) : ViewModel() {
 
 class MainViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val githubService = GithubServiceFactory.makeGithubService()
-        val repository = GithubDataRepository(GithubRemoteDataSource(githubService))
+        val remoteDataSource = GithubRemoteDataSource(
+            GithubServiceFactory.makeGithubService(),
+            GithubContentServiceFactory.makeGithubContentService()
+        )
+        val repository = GithubDataRepository(remoteDataSource)
         val useCase = GetListOfRepos(repository)
         return MainViewModel(useCase) as T
     }

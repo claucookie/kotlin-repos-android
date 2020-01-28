@@ -3,6 +3,7 @@ package dev.claucookielabs.kotlinreposapp.common.data.datasource.remote
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object GithubContentServiceFactory {
 
@@ -16,6 +17,7 @@ object GithubContentServiceFactory {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
             .create(GithubContentService::class.java)
     }

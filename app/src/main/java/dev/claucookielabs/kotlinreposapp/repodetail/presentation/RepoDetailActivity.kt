@@ -29,11 +29,11 @@ class RepoDetailActivity : AppCompatActivity() {
         val repo = intent.getParcelableExtra<Repo>(REPO_EXTRA)
         setupDataBinding(repo!!)
         setupToolbar(repo)
-        loadReadme()
+        loadReadme(repo)
     }
 
-    private fun loadReadme() {
-        viewModel.fetchReadmeContent()
+    private fun loadReadme(repo: Repo) {
+        viewModel.fetchReadmeContent(repo)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

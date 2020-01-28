@@ -94,7 +94,7 @@
             style="@style/Content"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            app:content="@{viewmodel.data}"
+            app:content="@{viewmodel.readme}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/readme_headline"

@@ -1,9 +1,6 @@
 package dev.claucookielabs.kotlinreposapp.repodetail.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubContentServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRemoteDataSource
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
@@ -14,7 +11,6 @@ import dev.claucookielabs.kotlinreposapp.repodetail.domain.GetReadmeFileContent
 import dev.claucookielabs.kotlinreposapp.repodetail.domain.GetReadmeFileRequest
 import dev.claucookielabs.kotlinreposapp.reposlist.presentation.UIModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -25,7 +21,9 @@ class RepoDetailViewModel(private val getReadmeFileContent: GetReadmeFileContent
         get() = _readme
 
     fun fetchReadmeContent(repo: Repo) {
-        GlobalScope.launch(Dispatchers.Main) {
+        if (_readme.value != null) return
+
+        viewModelScope.launch {
             _readme.value = UIModel.Loading
             _readme.value = withContext(Dispatchers.IO) {
                 val readmeResult = getReadmeFileContent.execute(

@@ -24,16 +24,21 @@ fun App.initKoin() {
     startKoin {
         androidLogger(Level.DEBUG)
         androidContext(this@initKoin)
-        modules(listOf(appModule))
+        modules(listOf(appModule, dataModule, scopedModules))
     }
 }
 
 private val appModule = module {
     single { GithubServiceFactory.create() }
     single { GithubContentServiceFactory.create() }
+}
+
+private val dataModule = module {
     factory<GithubRepository> { GithubDataRepository(get()) }
     factory<GithubDataSource> { GithubRemoteDataSource(get(), get()) }
+}
 
+private val scopedModules = module {
     scope(named<MainActivity>()) {
         viewModel { MainViewModel(get()) }
         scoped { GetListOfRepos(get()) }

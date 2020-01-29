@@ -1,7 +1,5 @@
 package dev.claucookielabs.kotlinreposapp.common.data.model
 
-import com.squareup.moshi.Json
-
 data class ApiRepo(
     var name: String,
     var description: String,

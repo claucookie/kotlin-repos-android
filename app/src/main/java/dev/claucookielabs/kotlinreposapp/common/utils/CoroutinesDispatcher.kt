@@ -4,7 +4,7 @@ import kotlin.coroutines.CoroutineContext
 
 interface CoroutinesDispatcher {
 
-    fun uiDispatcher() : CoroutineContext
-    fun ioDispatcher() : CoroutineContext
+    fun ui() : CoroutineContext
+    fun io() : CoroutineContext
 
 }

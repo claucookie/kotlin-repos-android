@@ -36,14 +36,8 @@ private val appModule = module {
     single { GithubContentServiceFactory.create() }
     single<CoroutinesDispatcher> {
         object : CoroutinesDispatcher {
-            override fun uiDispatcher(): CoroutineContext {
-                return Dispatchers.Main
-            }
-
-            override fun ioDispatcher(): CoroutineContext {
-                return Dispatchers.IO
-            }
-
+            override fun ui(): CoroutineContext = Dispatchers.Main
+            override fun io(): CoroutineContext = Dispatchers.IO
         }
     }
 }
@@ -60,7 +54,7 @@ private val scopedModules = module {
     }
 
     scope(named<RepoDetailActivity>()) {
-        viewModel { RepoDetailViewModel(get()) }
+        viewModel { RepoDetailViewModel(get(), get()) }
         scoped { GetReadmeFileContent(get()) }
     }
 }

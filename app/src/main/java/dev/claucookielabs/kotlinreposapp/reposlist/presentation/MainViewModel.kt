@@ -23,9 +23,9 @@ class MainViewModel(
     fun fetchKotlinRepos() {
         if (_data.value != null) return
 
-        viewModelScope.launch(dispatcher.uiDispatcher()) {
+        viewModelScope.launch(dispatcher.ui()) {
             _data.value = UIModel.Loading
-            _data.value = withContext(dispatcher.ioDispatcher()) {
+            _data.value = withContext(dispatcher.io()) {
                 val result = getListOfRepos.execute(GetReposRequest("kotlin"))
                 when (result) {
                     is ResultWrapper.Success -> UIModel.Content(result.value)

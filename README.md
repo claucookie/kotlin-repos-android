@@ -36,4 +36,4 @@ The ViewModel has been implemented using `LiveData` and `Data Binding`.
 
 ## Testing
 
-No tests for now, they were not part of the exercise.
+Unit tests for the data, domain and presentation layer.

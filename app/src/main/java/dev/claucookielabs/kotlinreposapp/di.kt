@@ -6,12 +6,14 @@ import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubRem
 import dev.claucookielabs.kotlinreposapp.common.data.datasource.remote.GithubServiceFactory
 import dev.claucookielabs.kotlinreposapp.common.data.repository.GithubDataRepository
 import dev.claucookielabs.kotlinreposapp.common.domain.GithubRepository
+import dev.claucookielabs.kotlinreposapp.common.utils.CoroutinesDispatcher
 import dev.claucookielabs.kotlinreposapp.repodetail.domain.GetReadmeFileContent
 import dev.claucookielabs.kotlinreposapp.repodetail.presentation.RepoDetailActivity
 import dev.claucookielabs.kotlinreposapp.repodetail.presentation.RepoDetailViewModel
 import dev.claucookielabs.kotlinreposapp.reposlist.domain.GetListOfRepos
 import dev.claucookielabs.kotlinreposapp.reposlist.presentation.MainActivity
 import dev.claucookielabs.kotlinreposapp.reposlist.presentation.MainViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,6 +21,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import kotlin.coroutines.CoroutineContext
 
 fun App.initKoin() {
     startKoin {
@@ -31,6 +34,18 @@ fun App.initKoin() {
 private val appModule = module {
     single { GithubServiceFactory.create() }
     single { GithubContentServiceFactory.create() }
+    single<CoroutinesDispatcher> {
+        object : CoroutinesDispatcher {
+            override fun uiDispatcher(): CoroutineContext {
+                return Dispatchers.Main
+            }
+
+            override fun ioDispatcher(): CoroutineContext {
+                return Dispatchers.IO
+            }
+
+        }
+    }
 }
 
 private val dataModule = module {
@@ -40,7 +55,7 @@ private val dataModule = module {
 
 private val scopedModules = module {
     scope(named<MainActivity>()) {
-        viewModel { MainViewModel(get()) }
+        viewModel { MainViewModel(get(), get()) }
         scoped { GetListOfRepos(get()) }
     }
 

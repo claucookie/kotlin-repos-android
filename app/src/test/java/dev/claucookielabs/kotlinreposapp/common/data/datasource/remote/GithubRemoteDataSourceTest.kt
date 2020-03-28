@@ -3,9 +3,8 @@ package dev.claucookielabs.kotlinreposapp.common.data.datasource.remote
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.whenever
-import dev.claucookielabs.kotlinreposapp.common.data.model.ApiFile
-import dev.claucookielabs.kotlinreposapp.common.data.model.ApiOwner
-import dev.claucookielabs.kotlinreposapp.common.data.model.ApiRepo
+import dev.claucookielabs.kotlinreposapp.aListOfApiFiles
+import dev.claucookielabs.kotlinreposapp.aListOfApiRepos
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -32,7 +31,7 @@ class GithubRemoteDataSourceTest {
     @Test
     fun `getReposByLanguage() returns items`() {
         val successResponse = Response.success(
-            SearchResponse(aListOfRepos().count(), aListOfRepos())
+            SearchResponse(aListOfApiRepos().count(), aListOfApiRepos())
         )
 
         runBlocking {
@@ -61,7 +60,7 @@ class GithubRemoteDataSourceTest {
 
     @Test
     fun `getFileContent() returns readme file`() {
-        val successResponse = Response.success(aListOfFiles())
+        val successResponse = Response.success(aListOfApiFiles())
         val fileName = "Readme.md"
 
         runBlocking {
@@ -84,7 +83,7 @@ class GithubRemoteDataSourceTest {
 
     @Test
     fun `getFileContent() returns empty content if file not found`() {
-        val successResponse = Response.success(aListOfFiles())
+        val successResponse = Response.success(aListOfApiFiles())
         val fileName = "Readme.md"
 
         runBlocking {
@@ -102,32 +101,5 @@ class GithubRemoteDataSourceTest {
 
             assert(result == "")
         }
-    }
-
-    private fun aListOfRepos(): List<ApiRepo> {
-        return listOf(
-            ApiRepo(
-                name = "Kotlin repo name",
-                description = "Kotlin repo description",
-                owner = ApiOwner(
-                    login = "username",
-                    avatar_url = "url"
-                ),
-                stargazers_count = 1000
-            )
-        )
-    }
-
-    private fun aListOfFiles(): List<ApiFile> {
-        return listOf(
-            ApiFile(
-                name = "gitignore",
-                download_url = "url"
-            ),
-            ApiFile(
-                name = "Readme.md",
-                download_url = "url"
-            )
-        )
     }
 }

@@ -37,3 +37,7 @@ The ViewModel has been implemented using `LiveData` and `Data Binding`.
 ## Testing
 
 Unit tests for the data, domain and presentation layer.
+To run unit tests, open the console, go the root folder of the project and execute the command
+```
+$ ./gradlew test
+```
